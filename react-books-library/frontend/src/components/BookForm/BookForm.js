@@ -74,7 +74,7 @@ const BookForm = () => {
             onClick={handleAddRandomBookViaApi}
             disabled={isLoading}
           >
-            {isLoading ? <Loader /> : "Add random via API"}
+            {isLoading ? <Loader /> : "Add via API"}
           </button>
         </div>
       </form>

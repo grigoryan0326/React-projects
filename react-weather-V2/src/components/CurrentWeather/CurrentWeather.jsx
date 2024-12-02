@@ -52,7 +52,8 @@ const WeatherComponent = () => {
           <div className='current-weather__info'>
             <h1 className='current-weather__title'>{weather?.name}</h1>
             <p className='current-weather__temp'>
-              {weather?.main.temp} {units === "metric" ? "°C" : "°F"}
+              {Math.round(weather?.main.temp || 0)}{" "}
+              {units === "metric" ? "°C" : "°F"}
             </p>
             <img
               src={icon}

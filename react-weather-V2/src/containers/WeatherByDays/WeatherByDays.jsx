@@ -61,7 +61,7 @@ const WeatherForecast = () => {
                 {new Date(item.dt * 1000).toLocaleTimeString()}
               </p>
               <p className='forecat__temp'>
-                {item?.main?.temp} {units === "metric" ? "°C" : "°F"}
+                {Math.round(item?.main?.temp || 0)} {units === "metric" ? "°C" : "°F"}
               </p>
               <p className='forecat__desc'>{item?.weather[0]?.main}</p>
               <img

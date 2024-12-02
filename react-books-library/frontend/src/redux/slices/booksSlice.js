@@ -47,7 +47,7 @@ const booksSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchBook.fulfilled, (state, action) => {
       state.isLoadingViaAPI = false
-      if (action.payload.title && action.payload.author) {
+      if (action?.payload?.title && action?.payload?.author) {
         state.books.push(createBookWithId(action.payload, "API"))
       }
     })

@@ -61,7 +61,7 @@ const WeatherByTime = () => {
               >
                 <p className='weatherByTime__time'>{getTime(item.dt_txt)}</p>
                 <p className='weatherByTime__temp'>
-                  {item?.main?.temp} {units === "metric" ? "°C" : "°F"}
+                  {Math.round(item?.main?.temp || 0)} {units === "metric" ? "°C" : "°F"}
                 </p>
                 <p className='weatherByTime__desc'>{item?.weather[0]?.main}</p>
                 <img
