@@ -1,4 +1,4 @@
-import { useState } from "react"
+import {  useState } from "react"
 import { FaSearch } from "react-icons/fa"
 
 import icon from "../../assets/svg/giphy-svgrepo-com.svg"
@@ -9,10 +9,11 @@ import { setSearch } from "../../redux/searchSlice"
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("")
-
   const dispatch = useDispatch()
+  
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault()
     dispatch(setSearch(searchValue))
   }
 
@@ -29,16 +30,24 @@ const Header = () => {
         </div>
       </div>
       <div className='header__search'>
-        <input
-          className='header__search-input'
-          type='text'
-          placeholder='Search for the gifs'
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
-        <button className='header__search-button' onClick={handleSearch}>
-          <FaSearch />
-        </button>
+        <form
+          className='header__search-form'
+          onSubmit={handleSearch}
+        >
+          <input
+            className='header__search-input'
+            type='text'
+            placeholder='Search for the gifs'
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          <button
+            type='submit'
+            className='header__search-button'
+          >
+            <FaSearch />
+          </button>
+        </form>
       </div>
     </div>
   )
