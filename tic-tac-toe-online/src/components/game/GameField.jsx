@@ -3,11 +3,14 @@ import clsx from "clsx"
 import UIButton from "../ui/UIButton"
 import getIcon from "@/utils/getSVGIcon"
 
-import UseGameState from "./UseGameState"
-
-const GameField = ({ className, playersCount }) => {
-  const { cells, currentMove, nextMove, handleCellClick } = UseGameState(playersCount)
-
+const GameField = ({
+  className,
+  playersCount,
+  cells,
+  currentMove,
+  nextMove,
+  handleCellClick,
+}) => {
   const actions = (
     <div>
       <UIButton

@@ -7,6 +7,7 @@ import avatarSrc1 from "./images/avatar-1.png"
 import avatarSrc2 from "./images/avatar-2.png"
 import avatarSrc3 from "./images/avatar-3.png"
 import avatarSrc4 from "./images/avatar-4.png"
+import { useEffect, useState } from "react"
 
 const players = [
   {
@@ -21,25 +22,25 @@ const players = [
     name: "Bob",
     rating: 555,
     avatar: avatarSrc2,
-    symbol: "circle",
+    symbol: GAME_SYMBOLS.ROUND,
   },
   {
     id: 3,
     name: "Aliceeeeeee",
     rating: 444,
     avatar: avatarSrc3,
-    symbol: "triangle",
+    symbol: GAME_SYMBOLS.TRIANGLE,
   },
   {
     id: 4,
     name: "VereIntedinglapotur",
     rating: 222,
     avatar: avatarSrc4,
-    symbol: "square",
+    symbol: GAME_SYMBOLS.SQUARE,
   },
 ]
 
-const GameInfo = ({ className, playersCount }) => {
+const GameInfo = ({ className, playersCount, currentMove, nextMove }) => {
   return (
     <div
       className={clsx(
@@ -52,6 +53,7 @@ const GameInfo = ({ className, playersCount }) => {
           isRight={player.id % 2 === 0}
           key={player.id}
           playerInfo={player}
+          isTimerRunning={player.symbol === currentMove}
         />
       ))}
       {/* <div className='flex items-center gap-3'>
@@ -78,7 +80,33 @@ const GameInfo = ({ className, playersCount }) => {
   )
 }
 
-function PlayerInfo({ playerInfo, isRight }) {
+function PlayerInfo({ playerInfo, isRight, isTimerRunning }) {
+  const [seconds, setSeconds] = useState(60)
+
+  const minutesString = Math.floor(seconds / 60)
+    .toString()
+    .padStart(2, "0")
+  const secondsString = (seconds % 60).toString().padStart(2, "0")
+
+  const isDanger = seconds < 10
+
+  useEffect(() => {
+    if (isTimerRunning) {
+      const interval = setInterval(() => {
+        setSeconds((s) => Math.max(s - 1, 0))
+      }, 1000)
+
+      return () => {
+        clearInterval(interval)
+      }
+    }
+  }, [isTimerRunning])
+
+  const getTimerColor = () => {
+    if (isTimerRunning) return isDanger ? "text-orange-600" : "text-teal-900"
+    return "text-slate-300"
+  }
+
   return (
     <div className='flex items-center gap-3'>
       <div className={clsx("relative", isRight && "order-3")}>
@@ -97,11 +125,12 @@ function PlayerInfo({ playerInfo, isRight }) {
       ></div>
       <div
         className={clsx(
-          "text-teal-900 text-lg font-semibold",
-          isRight && "order-1"
+          "text-lg font-semibold w-[60px]",
+          isRight && "order-1",
+          getTimerColor()
         )}
       >
-        01:08
+        {minutesString}:{secondsString}
       </div>
     </div>
   )
