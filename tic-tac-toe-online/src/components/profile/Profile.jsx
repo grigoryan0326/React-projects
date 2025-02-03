@@ -1,8 +1,9 @@
 import Image from "next/image"
-import avatarSrc from "./avatar.png"
 import clsx from "clsx"
 
-const Profile = ({ className }) => {
+import avatarSrc from "./avatar.png"
+
+const Profile = ({ className, name, rating, avatar = avatarSrc }) => {
   return (
     <div
       className={clsx(
@@ -11,15 +12,17 @@ const Profile = ({ className }) => {
       )}
     >
       <Image
-        src={avatarSrc}
+        src={avatar}
         alt='avatar'
         width={40}
         height={40}
         unoptimized
       />
-      <div className='flex flex-col column'>
-        <div className='text-lg leading-tight'>Karen</div>
-        <div className='text-slate-400 text-xs leading-tight'>Raiting: 333</div>
+      <div className='overflow-hidden'>
+        <div className='text-lg leading-tight truncate'>{name}</div>
+        <div className='text-slate-400 text-xs leading-tight'>
+          Raiting: {rating}
+        </div>
       </div>
     </div>
   )

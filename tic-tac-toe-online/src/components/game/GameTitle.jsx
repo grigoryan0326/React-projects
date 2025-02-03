@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import getIcon from "@/utils/getSVGIcon"
 
-const GameTitle = () => {
+const GameTitle = ({ playersCount }) => {
   return (
     <div className='pl-2'>
       <Link
@@ -15,7 +15,10 @@ const GameTitle = () => {
       <h1 className='text-4xl leading-tight text-black'>Tic-Tac-Toe</h1>
       <div className='flex items-center gap-3 text-xs'>
         <p>{getIcon("star")}</p>
-        <p className='flex items-center gap-1'>{getIcon("user")}2</p>
+        <p className='flex items-center gap-1'>
+          {getIcon("user")}
+          {playersCount}
+        </p>
         <p className='flex items-center gap-1'>
           {getIcon("time")}1 min per move
         </p>

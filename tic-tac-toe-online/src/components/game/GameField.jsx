@@ -1,13 +1,12 @@
 import clsx from "clsx"
-import { useState } from "react"
 
 import UIButton from "../ui/UIButton"
 import getIcon from "@/utils/getSVGIcon"
 
 import UseGameState from "./UseGameState"
 
-const GameField = ({ className }) => {
-  const { cells, currentMove, nextMove, handleCellClick } = UseGameState()
+const GameField = ({ className, playersCount }) => {
+  const { cells, currentMove, nextMove, handleCellClick } = UseGameState(playersCount)
 
   const actions = (
     <div>
@@ -28,7 +27,7 @@ const GameField = ({ className }) => {
   )
 
   return (
-    <GameFieldLayout className='mt-6'>
+    <GameFieldLayout className={clsx(className)}>
       <GameMoveInfo
         actions={actions}
         currentMove={currentMove}

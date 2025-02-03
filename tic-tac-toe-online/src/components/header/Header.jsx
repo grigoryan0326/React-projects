@@ -22,7 +22,10 @@ const Header = () => {
         Play
       </UIButton>
       <button className='ml-auto flex items-center gap-2 text-start text-teal-600 hover:text-teal-500 transition-colors'>
-        <Profile />
+        <Profile
+          name='Karen'
+          rating={333}
+        />
         {getIcon("arrow-down")}
       </button>
     </header>
