@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import Profile from "../profile"
 import getIcon from "@/utils/getSVGIcon"
-import { GAME_SYMBOLS } from "./UseGameState"
+import { GAME_SYMBOLS } from "./useGameState"
 
 import avatarSrc1 from "./images/avatar-1.png"
 import avatarSrc2 from "./images/avatar-2.png"
@@ -40,7 +40,14 @@ const players = [
   },
 ]
 
-const GameInfo = ({ className, playersCount, currentMove, nextMove }) => {
+const GameInfo = ({
+  className,
+  playersCount,
+  currentMove,
+  isWinner,
+  winnerSymbol,
+  handlePlayerTimeOver,
+}) => {
   return (
     <div
       className={clsx(
@@ -53,35 +60,23 @@ const GameInfo = ({ className, playersCount, currentMove, nextMove }) => {
           isRight={player.id % 2 === 0}
           key={player.id}
           playerInfo={player}
-          isTimerRunning={player.symbol === currentMove}
+          isTimerRunning={player.symbol === currentMove && !winnerSymbol}
+          onTimeOver={() => handlePlayerTimeOver(player.symbol)}
+          winnerSymbol={winnerSymbol}
         />
       ))}
-      {/* <div className='flex items-center gap-3'>
-        <div className='relative'>
-          <Profile />
-          <div className='w-5 h-5 rounded-full absolute bg-white shadow -left-1 -top-1 flex items-center justify-center'>
-            {getIcon("cross")}
-          </div>
-        </div>
-        <div className='h-6 w-px bg-slate-200'></div>
-        <div className='text-teal-900 text-lg font-semibold'>01:08</div>
-      </div>
-      <div className='flex items-center gap-3'>
-        <div className='text-orange-600 text-lg font-semibold'>00:08</div>
-        <div className='h-6 w-px bg-slate-200'></div>
-        <div className='relative'>
-          <Profile />
-          <div className='w-5 h-5 rounded-full absolute bg-white shadow -left-1 -top-1 flex items-center justify-center'>
-            {getIcon("circle")}
-          </div>
-        </div>
-      </div> */}
     </div>
   )
 }
 
-function PlayerInfo({ playerInfo, isRight, isTimerRunning }) {
-  const [seconds, setSeconds] = useState(60)
+function PlayerInfo({
+  playerInfo,
+  isRight,
+  isTimerRunning,
+  onTimeOver,
+  winnerSymbol,
+}) {
+  const [seconds, setSeconds] = useState(5)
 
   const minutesString = Math.floor(seconds / 60)
     .toString()
@@ -100,7 +95,13 @@ function PlayerInfo({ playerInfo, isRight, isTimerRunning }) {
         clearInterval(interval)
       }
     }
-  }, [isTimerRunning])
+  }, [isTimerRunning, winnerSymbol])
+
+  useEffect(() => {
+    if (seconds === 0) {
+      onTimeOver()
+    }
+  }, [seconds])
 
   const getTimerColor = () => {
     if (isTimerRunning) return isDanger ? "text-orange-600" : "text-teal-900"
@@ -108,7 +109,12 @@ function PlayerInfo({ playerInfo, isRight, isTimerRunning }) {
   }
 
   return (
-    <div className='flex items-center gap-3'>
+    <div
+      className={clsx(
+        "flex items-center gap-3",
+        playerInfo.symbol === winnerSymbol && "bg-green-600/50 p-3 rounded-lg"
+      )}
+    >
       <div className={clsx("relative", isRight && "order-3")}>
         <Profile
           className='w-44'

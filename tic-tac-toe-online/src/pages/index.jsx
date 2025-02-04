@@ -1,12 +1,20 @@
 import { useState } from "react"
+
 import Header from "@/components/header"
 import { GameTitle, GameInfo, GameField } from "@/components/game"
-import UseGameState from "@/components/game/UseGameState"
+import useGameState from "@/components/game/useGameState"
 
 const HomePage = () => {
   const [playersCount, setPlayersCount] = useState(4)
-  const { cells, currentMove, nextMove, handleCellClick } =
-    UseGameState(playersCount)
+  const {
+    cells,
+    currentMove,
+    nextMove,
+    handleCellClick,
+    winnerSequence,
+    winnerSymbol,
+    handlePlayerTimeOver,
+  } = useGameState(playersCount)
 
   return (
     <div className='bg-slate-50 min-h-screen'>
@@ -17,7 +25,9 @@ const HomePage = () => {
           className='mt-4'
           playersCount={playersCount}
           currentMove={currentMove}
-          nextMove={nextMove}
+          isWinner={!!winnerSequence}
+          winnerSymbol={winnerSymbol}
+          handlePlayerTimeOver={handlePlayerTimeOver}
         />
         <GameField
           className='mt-6 mb-6'
@@ -26,6 +36,8 @@ const HomePage = () => {
           nextMove={nextMove}
           handleCellClick={handleCellClick}
           cells={cells}
+          winnerSequence={winnerSequence}
+          winnerSymbol={winnerSymbol}
         />
       </main>
     </div>

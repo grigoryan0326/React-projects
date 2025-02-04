@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { computeWinner, getNextMove } from "./model"
 
 export const GAME_SYMBOLS = {
   ROUND: "circle",
@@ -7,26 +8,29 @@ export const GAME_SYMBOLS = {
   SQUARE: "square",
 }
 
-const MOVE_ORDER = [
+export const MOVE_ORDER = [
   GAME_SYMBOLS.CROSS,
   GAME_SYMBOLS.ROUND,
   GAME_SYMBOLS.TRIANGLE,
   GAME_SYMBOLS.SQUARE,
 ]
 
-function getNextMove(currentMove, playersCount) {
-  const slicedMoveOrder = MOVE_ORDER.slice(0, playersCount)
-  const nextMoveIndex = slicedMoveOrder.indexOf(currentMove) + 1
-  return slicedMoveOrder[nextMoveIndex % slicedMoveOrder.length]
-}
+const useGameState = (playersCount) => {
+  const [{ cells, currentMove, playersTimeOver }, setGameState] = useState(
+    () => ({
+      cells: new Array(19 * 19).fill(null),
+      currentMove: GAME_SYMBOLS.CROSS,
+      playersTimeOver: [],
+    })
+  )
 
-const UseGameState = (playersCount) => {
-  const [{ cells, currentMove }, setGameState] = useState(() => ({
-    cells: new Array(19 * 19).fill(null),
-    currentMove: GAME_SYMBOLS.CROSS,
-  }))
-
-  const nextMove = getNextMove(currentMove, playersCount)
+  const winnerSequence = computeWinner(cells)
+  let winnerSymbol = winnerSequence
+    ? cells[winnerSequence[0]]
+    : playersCount - playersTimeOver.length === 1
+    ? currentMove
+    : null
+  const nextMove = getNextMove(currentMove, playersCount, playersTimeOver)
 
   const handleCellClick = (i) => {
     if (cells[i] !== null) return
@@ -40,11 +44,22 @@ const UseGameState = (playersCount) => {
     }))
   }
 
+  const handlePlayerTimeOver = (symbol) => {
+    setGameState((prev) => ({
+      ...prev,
+      playersTimeOver: [...prev.playersTimeOver, symbol],
+      currentMove: nextMove,
+    }))
+  }
+
   return {
     cells,
     currentMove,
     nextMove,
     handleCellClick,
+    handlePlayerTimeOver,
+    winnerSequence,
+    winnerSymbol,
   }
 }
-export default UseGameState
+export default useGameState
