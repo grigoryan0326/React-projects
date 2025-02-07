@@ -1,0 +1,112 @@
+@use "@/styles/variables.scss" as *;
+
+.customers-container {
+  padding-block: clamp(3.125rem, 2.025rem + 4.69vw, 6.25rem);
+  height: auto;
+  background: url("../../public/bg3.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  .customers-header {
+    color: $color-white;
+    width: clamp(21.438rem, 15.76rem + 24.23vw, 37.563rem);
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 60px;
+    h2 {
+      font-size: $font-size-big;
+      font-weight: $font-weight-bold;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    p {
+      @media (max-width: 920px) {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+  }
+  .customers-cards {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .card {
+      color: $color-black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: $color-white;
+      border-radius: $radius-medium;
+      transition: transform 0.3s, opacity 0.3s;
+      opacity: 0.9;
+      z-index: 1;
+      width: 570px;
+      .image {
+        margin-top: 40px;
+        width: 96px;
+        height: 96px;
+        margin-bottom: 20px;
+        object-fit: cover;
+      }
+      h3 {
+        font-weight: $font-weight-bold;
+        font-size: $font-size-big;
+        text-transform: uppercase;
+      }
+      .position {
+        text-transform: uppercase;
+        font-size: $font-size-medium;
+        font-weight: $font-weight-medium;
+        margin-bottom: 8px;
+      }
+      .desc {
+        text-align: center;
+        color: $color-gray;
+        margin-bottom: 23px;
+        padding-inline: 38px;
+      }
+    }
+    .card:first-of-type {
+      transform: translateX(-80%);
+      @media (max-width: 821px) {
+        display: none;
+      }
+    }
+    .card:last-of-type {
+      transform: translateX(80%);
+      @media (max-width: 821px) {
+        display: none;
+      }
+    }
+    .card.center {
+      position: absolute;
+      top: 0;
+      flex-shrink: 1;
+      width: clamp(20rem, 10.097rem + 42.25vw, 48.125rem);
+      height: 357px;
+      opacity: 1;
+      z-index: 2;
+      transform: translateX(0) scale(1.1);
+      @media (max-width: 821px) {
+        height: auto;
+        position: relative;
+        & p {
+          display: -webkit-box;
+          line-clamp: 3;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+  .pagination {
+    text-align: center;
+    margin-top: clamp(3.125rem, 2.619rem + 2.16vw, 4.563rem);
+  }
+}

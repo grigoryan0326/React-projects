@@ -1,0 +1,23 @@
+$color-blue: #5956e9;
+$color-black: #232233;
+$color-gray: #6c6c72;
+$color-white: #ffffff;
+
+$font-family: "Josefin Sans", sans-serif;
+
+$font-weight-normal: 400;
+$font-weight-medium: 600;
+$font-weight-bold: 700;
+
+$font-size-small: 16px;
+$font-size-medium: 20px;
+$font-size-big: clamp(1.563rem, 1.425rem + 0.59vw, 1.953rem);
+
+$radius-small: 5px;
+$radius-medium: 10px;
+
+@use "sass:color";
+
+@function lighten-color($color, $percentage) {
+  @return color.adjust($color, $lightness: $percentage);
+}

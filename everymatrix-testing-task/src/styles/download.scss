@@ -1,0 +1,128 @@
+@use "@/styles/variables" as *;
+
+.download-container {
+  padding-block: clamp(3.125rem, 2.025rem + 4.69vw, 6.25rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .left {
+    width: clamp(21.438rem, 16.442rem + 21.31vw, 35.625rem);
+    h2 {
+      font-size: $font-size-big;
+      font-weight: $font-weight-bold;
+      color: $color-black;
+      @media (max-width: 1024px) {
+        text-align: center;
+      }
+    }
+    .description {
+      color: $color-gray;
+      @media (max-width: 1024px) {
+        text-align: center;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+    .buttons {
+      display: flex;
+      gap: 24px;
+      margin-block: clamp(3.188rem, 2.989rem + 0.85vw, 3.75rem);
+      @media (max-width: 1024px) {
+        justify-content: center;
+      }
+    }
+    .numbers {
+      display: flex;
+      justify-content: space-between;
+      gap: 5px;
+      @media (max-width: 1024px) {
+        margin-bottom: 60px;
+      }
+      .item {
+        padding-block: 30px 20px;
+        width: clamp(6.438rem, 4.963rem + 6.29vw, 10.625rem);
+        background-color: $color-blue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(0.5rem, 0.28rem + 0.94vw, 1.125rem);
+        border-radius: $radius-medium;
+        color: $color-white;
+        @media (max-width: 1024px) {
+          padding-block: 6px;
+        }
+        p {
+          font-size: 25px;
+          line-height: 25px;
+          font-weight: $font-weight-medium;
+          @media (max-width: 1024px) {
+            font-size: $font-size-small;
+            font-weight: $font-weight-normal;
+          }
+        }
+        .name {
+          font-size: $font-size-small;
+          font-weight: $font-weight-normal;
+          text-transform: uppercase;
+          @media (max-width: 1024px) {
+            font-size: 13px;
+            font-weight: $font-weight-normal;
+          }
+        }
+      }
+    }
+  }
+  .right {
+    flex: 1 0 auto;
+  }
+}
+
+.use {
+  height: clamp(22.313rem, 19.672rem + 11.27vw, 29.813rem);
+  background: url("../../public/bg1.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  margin-bottom: clamp(5.625rem, 2.324rem + 14.08vw, 15rem);
+  .use-content {
+    padding-top: clamp(3.125rem, 2.025rem + 4.69vw, 6.25rem);
+    width: clamp(18.75rem, 12.126rem + 28.26vw, 37.563rem);
+    margin-inline: auto;
+    text-align: center;
+    color: $color-white;
+    h2 {
+      text-transform: uppercase;
+      font-size: $font-size-big;
+      font-weight: $font-weight-bold;
+      margin-bottom: 20px;
+    }
+    p {
+      @media (max-width: 1140px) {
+        text-align: center;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+  }
+  .use-img {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    width: clamp(21.438rem, 12.04rem + 40.09vw, 48.125rem);
+    .image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  }
+}
