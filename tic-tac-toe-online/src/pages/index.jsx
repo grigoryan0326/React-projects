@@ -3,6 +3,8 @@ import { useState } from "react"
 import Header from "@/components/header"
 import { GameTitle, GameInfo, GameField } from "@/components/game"
 import useGameState from "@/components/game/useGameState"
+import UIModal from "@/components/ui/UIModal"
+import UIButton from "@/components/ui/UIButton"
 
 const HomePage = () => {
   const [playersCount, setPlayersCount] = useState(4)
@@ -29,6 +31,31 @@ const HomePage = () => {
           winnerSymbol={winnerSymbol}
           handlePlayerTimeOver={handlePlayerTimeOver}
         />
+        <UIModal
+          width={"md"}
+          isOpen={!!winnerSymbol}
+        >
+          <UIModal.Header>Game Over!</UIModal.Header>
+          <UIModal.Body>
+            <div className='text-sm'>
+              Winner: <span className='text-teal-600'>Karen</span>
+            </div>
+          </UIModal.Body>
+          <UIModal.Footer>
+            <UIButton
+              size='md'
+              variant='outline'
+            >
+              Quit
+            </UIButton>
+            <UIButton
+              size='md'
+              variant='primary'
+            >
+              Restart
+            </UIButton>
+          </UIModal.Footer>
+        </UIModal>
         <GameField
           className='mt-6 mb-6'
           playersCount={playersCount}
