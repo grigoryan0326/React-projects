@@ -4,7 +4,7 @@ import getIcon from "@/utils/getSVGIcon"
 
 import logoSrc from "./logo.svg"
 import Profile from "../profile"
-import UIButton from "../ui/UIButton"
+import UIButton from "../game/UI/UIButton"
 
 const Header = () => {
   return (

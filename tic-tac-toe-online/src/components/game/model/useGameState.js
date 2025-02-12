@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { computeWinner, getNextMove } from "./model"
+import { getNextMove } from "./getNextMove"
+import { computeWinner } from "./computeWinner"
 
 export const GAME_SYMBOLS = {
   ROUND: "circle",
