@@ -1,7 +1,6 @@
 import clsx from "clsx"
 import Profile from "../profile"
 import getIcon from "@/utils/getSVGIcon"
-import { GAME_SYMBOLS } from "./model/useGameState"
 
 import { useEffect, useState } from "react"
 

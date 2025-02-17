@@ -2,6 +2,7 @@ import Image from "next/image"
 import clsx from "clsx"
 
 import getIcon from "@/utils/getSVGIcon"
+import { useNow } from "@/components/lib/timers"
 
 const PlayerInfo = ({
   isRight,
@@ -9,9 +10,12 @@ const PlayerInfo = ({
   rating,
   avatar,
   symbol,
-  seconds,
-  isTimerRunning,
+  timer,
+  timerStartAt,
 }) => {
+  const now = useNow(1000, timerStartAt)
+  const mils = Math.max(now ? timer - (now - timerStartAt) : timer, 0)
+  const seconds = Math.ceil(mils / 1000)
   const minutesString = Math.floor(seconds / 60)
     .toString()
     .padStart(2, "0")
@@ -20,7 +24,7 @@ const PlayerInfo = ({
   const isDanger = seconds < 10
 
   const getTimerColor = () => {
-    if (isTimerRunning) return isDanger ? "text-orange-600" : "text-teal-900"
+    if (timerStartAt) return isDanger ? "text-orange-600" : "text-teal-900"
     return "text-slate-300"
   }
 
