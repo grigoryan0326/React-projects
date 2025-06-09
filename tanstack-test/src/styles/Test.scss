@@ -1,0 +1,50 @@
+.person-form {
+
+  .inputs-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    .input {
+      position: relative;
+      width: 100%;
+
+      input {
+        padding: 10px;
+        border-radius: 5px;
+        outline: none;
+        border: 1px solid transparent;
+        transition: all 0.3s ease-in-out;
+        width: 100%;
+        font-size: 24px;
+
+        &:focus-visible {
+          border-color: whitesmoke;
+        }
+      }
+
+      label {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        transition: all 0.3s ease-in-out;
+        opacity: .8;
+        background-color: #3b3b3b;
+        padding: 0 5px;
+      }
+
+      input:focus+label {
+        top: 0;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px blueviolet inset !important;
+  -webkit-text-fill-color: black !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
